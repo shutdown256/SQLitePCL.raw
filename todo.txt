@@ -346,8 +346,6 @@ unprotected sqlite3_value:  sqlite3_column_value, sqlite3_bind_value, sqlite3_re
 
 sqlite3_create_module
 
-sqlite3_db_config
-
 sqlite3_db_mutex
 
 sqlite3_get_auxdata
