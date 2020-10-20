@@ -486,6 +486,11 @@ namespace SQLitePCL
             return NativeMethods.sqlite3_threadsafe();
         }
 
+        int ISQLite3Provider.sqlite3_limit(sqlite3 db, int id, int newVal)
+        {
+            return NativeMethods.sqlite3_limit(db, id, newVal);
+        }
+
         int ISQLite3Provider.sqlite3_config(int op)
         {
             return NativeMethods.sqlite3_config_none(op);
@@ -1512,6 +1517,7 @@ namespace SQLitePCL
 			sqlite3_key_v2 = (MyDelegateTypes.sqlite3_key_v2) Load(gf, typeof(MyDelegateTypes.sqlite3_key_v2));
 			sqlite3_rekey = (MyDelegateTypes.sqlite3_rekey) Load(gf, typeof(MyDelegateTypes.sqlite3_rekey));
 			sqlite3_rekey_v2 = (MyDelegateTypes.sqlite3_rekey_v2) Load(gf, typeof(MyDelegateTypes.sqlite3_rekey_v2));
+			sqlite3_limit = (MyDelegateTypes.sqlite3_limit) Load(gf, typeof(MyDelegateTypes.sqlite3_limit));
 			sqlite3_config_none = (MyDelegateTypes.sqlite3_config_none) Load(gf, typeof(MyDelegateTypes.sqlite3_config_none));
 			sqlite3_config_int = (MyDelegateTypes.sqlite3_config_int) Load(gf, typeof(MyDelegateTypes.sqlite3_config_int));
 			sqlite3_config_log = (MyDelegateTypes.sqlite3_config_log) Load(gf, typeof(MyDelegateTypes.sqlite3_config_log));
@@ -1646,6 +1652,7 @@ namespace SQLitePCL
 		public static MyDelegateTypes.sqlite3_key_v2 sqlite3_key_v2;
 		public static MyDelegateTypes.sqlite3_rekey sqlite3_rekey;
 		public static MyDelegateTypes.sqlite3_rekey_v2 sqlite3_rekey_v2;
+		public static MyDelegateTypes.sqlite3_limit sqlite3_limit;
 		public static MyDelegateTypes.sqlite3_config_none sqlite3_config_none;
 		public static MyDelegateTypes.sqlite3_config_int sqlite3_config_int;
 		public static MyDelegateTypes.sqlite3_config_log sqlite3_config_log;
@@ -2011,6 +2018,8 @@ namespace SQLitePCL
 
 		[UnmanagedFunctionPointer(CALLING_CONVENTION)]
 		public unsafe delegate int sqlite3_rekey_v2(sqlite3 db, byte* dbname, byte* key, int keylen);
+		[UnmanagedFunctionPointer(CALLING_CONVENTION)]
+		public unsafe delegate int sqlite3_limit(sqlite3 db, int id, int newVal);
 
 		// Since sqlite3_config() takes a variable argument list, we have to overload declarations
 		// for all possible calls that we want to use.
