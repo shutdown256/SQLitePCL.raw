@@ -90,6 +90,19 @@ namespace SQLitePCL
 
         public const int SQLITE_DETERMINISTIC = 0x800;
 
+        public const int SQLITE_LIMIT_LENGTH = 0;
+        public const int SQLITE_LIMIT_SQL_LENGTH = 1;
+        public const int SQLITE_LIMIT_COLUMN = 2;
+        public const int SQLITE_LIMIT_EXPR_DEPTH = 3;
+        public const int SQLITE_LIMIT_COMPOUND_SELECT = 4;
+        public const int SQLITE_LIMIT_VDBE_OP = 5;
+        public const int SQLITE_LIMIT_FUNCTION_ARG = 6;
+        public const int SQLITE_LIMIT_ATTACHED = 7;
+        public const int SQLITE_LIMIT_LIKE_PATTERN_LENGTH = 8;
+        public const int SQLITE_LIMIT_VARIABLE_NUMBER = 9;
+        public const int SQLITE_LIMIT_TRIGGER_DEPTH = 10;
+        public const int SQLITE_LIMIT_WORKER_THREADS = 11;
+
         public const int SQLITE_CONFIG_SINGLETHREAD = 1;  /* nil */
         public const int SQLITE_CONFIG_MULTITHREAD = 2;  /* nil */
         public const int SQLITE_CONFIG_SERIALIZED = 3;  /* nil */
@@ -616,6 +629,11 @@ namespace SQLitePCL
         static public int sqlite3_shutdown()
         {
             return Provider.sqlite3_shutdown();
+        }
+
+        static public int sqlite3_limit(sqlite3 db, int id, int newVal)
+        {
+            return Provider.sqlite3_limit(db, id, newVal);
         }
 
         static public int sqlite3_config(int op)

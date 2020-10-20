@@ -248,6 +248,8 @@ namespace SQLitePCL
         int sqlite3_initialize();
         int sqlite3_shutdown();
 
+        int sqlite3_limit(sqlite3 db, int id, int newVal);
+
         // sqlite3_config() takes a variable argument list
         int sqlite3_config(int op);
         int sqlite3_config(int op, int val);
