@@ -600,6 +600,24 @@ namespace SQLitePCL
             return NativeMethods.sqlite3_config_int(op, val);
         }
 
+        unsafe int ISQLite3Provider.sqlite3_db_config(sqlite3 db, int op, utf8z val)
+        {
+            fixed (byte* p_val = val)
+            {
+                return NativeMethods.sqlite3_db_config_charptr(db, op, p_val);
+            }
+        }
+
+        int ISQLite3Provider.sqlite3_db_config(sqlite3 db, int op, int val, ref int result)
+        {
+            return NativeMethods.sqlite3_db_config_int_refint(db, op, val, ref result);
+        }
+
+        int ISQLite3Provider.sqlite3_db_config(sqlite3 db, int op, IntPtr ptr, int int0, int int1)
+        {
+            return NativeMethods.sqlite3_db_config_intptr_two_ints(db, op, ptr, int0, int1);
+        }
+
         int ISQLite3Provider.sqlite3_initialize()
         {
             return NativeMethods.sqlite3_initialize();
@@ -1632,6 +1650,9 @@ namespace SQLitePCL
 		"sqlite3_config_none",
 		"sqlite3_config_int",
 		"sqlite3_config_log",
+		"sqlite3_db_config_charptr",
+		"sqlite3_db_config_int_refint",
+		"sqlite3_db_config_intptr_two_ints",
 		"sqlite3_create_function_v2",
 		"sqlite3_create_collation",
 		"sqlite3_update_hook",
@@ -1770,16 +1791,19 @@ namespace SQLitePCL
 		string attr;
 		string front;
 		string attr_sqlite3_config;
+		string attr_sqlite3_db_config;
 		if (k == "dynamic")
 		{
 			attr = "[UnmanagedFunctionPointer(CALLING_CONVENTION)]";
 			attr_sqlite3_config = "[UnmanagedFunctionPointer(CALLING_CONVENTION)]\n\t\t[EntryPoint(\"sqlite3_config\")]";
+			attr_sqlite3_db_config = "[UnmanagedFunctionPointer(CALLING_CONVENTION)]\n\t\t[EntryPoint(\"sqlite3_db_config\")]";
 			front = "public unsafe delegate";
 		}
 		else if (k == "dllimport")
 		{
 			attr = "[DllImport(SQLITE_DLL, ExactSpelling=true, CallingConvention = CALLING_CONVENTION)]";
 			attr_sqlite3_config = "[DllImport(SQLITE_DLL, ExactSpelling=true, EntryPoint = \"sqlite3_config\", CallingConvention = CALLING_CONVENTION)]";
+			attr_sqlite3_db_config = "[DllImport(SQLITE_DLL, ExactSpelling=true, EntryPoint = \"sqlite3_db_config\", CallingConvention = CALLING_CONVENTION)]";
 			front = "public static extern unsafe";
 		}
 		else
@@ -2084,6 +2108,15 @@ namespace SQLitePCL
 
 		<#= attr_sqlite3_config #>
 		<#= front #> int sqlite3_config_log(int op, NativeMethods.callback_log func, hook_handle pvUser);
+
+		<#= attr_sqlite3_db_config #>
+		<#= front #> int sqlite3_db_config_charptr(sqlite3 db, int op, byte* charPtr);
+
+		<#= attr_sqlite3_db_config #>
+		<#= front #> int sqlite3_db_config_int_refint(sqlite3 db, int op, int val, ref int result);
+
+		<#= attr_sqlite3_db_config #>
+		<#= front #> int sqlite3_db_config_intptr_two_ints(sqlite3 db, int op,  IntPtr ptr, int int0, int int1);
 
 		<#= attr #>
 		<#= front #> int sqlite3_create_collation(sqlite3 db, byte[] strName, int nType, hook_handle pvUser, NativeMethods.callback_collation func);

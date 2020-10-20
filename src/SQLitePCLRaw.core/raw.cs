@@ -112,6 +112,26 @@ namespace SQLitePCL
         public const int SQLITE_CONFIG_COVERING_INDEX_SCAN = 20;  /* int */
         public const int SQLITE_CONFIG_SQLLOG = 21;  /* xSqllog, void* */
 
+        public const int SQLITE_DBCONFIG_MAINDBNAME = 1000; /* const char* */
+        public const int SQLITE_DBCONFIG_LOOKASIDE = 1001; /* void* int int */
+        public const int SQLITE_DBCONFIG_ENABLE_FKEY = 1002; /* int int* */
+        public const int SQLITE_DBCONFIG_ENABLE_TRIGGER = 1003; /* int int* */
+        public const int SQLITE_DBCONFIG_ENABLE_FTS3_TOKENIZER = 1004; /* int int* */
+        public const int SQLITE_DBCONFIG_ENABLE_LOAD_EXTENSION = 1005; /* int int* */
+        public const int SQLITE_DBCONFIG_NO_CKPT_ON_CLOSE = 1006; /* int int* */
+        public const int SQLITE_DBCONFIG_ENABLE_QPSG = 1007; /* int int* */
+        public const int SQLITE_DBCONFIG_TRIGGER_EQP = 1008; /* int int* */
+        public const int SQLITE_DBCONFIG_RESET_DATABASE = 1009; /* int int* */
+        public const int SQLITE_DBCONFIG_DEFENSIVE = 1010; /* int int* */
+        public const int SQLITE_DBCONFIG_WRITABLE_SCHEMA = 1011; /* int int* */
+        public const int SQLITE_DBCONFIG_LEGACY_ALTER_TABLE = 1012; /* int int* */
+        public const int SQLITE_DBCONFIG_DQS_DML = 1013; /* int int* */
+        public const int SQLITE_DBCONFIG_DQS_DDL = 1014; /* int int* */
+        public const int SQLITE_DBCONFIG_ENABLE_VIEW = 1015; /* int int* */
+        public const int SQLITE_DBCONFIG_LEGACY_FILE_FORMAT = 1016; /* int int* */
+        public const int SQLITE_DBCONFIG_TRUSTED_SCHEMA = 1017; /* int int* */
+        public const int SQLITE_DBCONFIG_MAX = 1017; /* Largest DBCONFIG */
+
         public const int SQLITE_OPEN_READONLY = 0x00000001;  /* Ok for sqlite3_open_v2() */
         public const int SQLITE_OPEN_READWRITE = 0x00000002;  /* Ok for sqlite3_open_v2() */
         public const int SQLITE_OPEN_CREATE = 0x00000004;  /* Ok for sqlite3_open_v2() */
@@ -606,6 +626,21 @@ namespace SQLitePCL
         static public int sqlite3_config(int op, int val)
         {
             return Provider.sqlite3_config(op, val);
+        }
+
+        static public int sqlite3_db_config(sqlite3 db, int op, utf8z val) 
+        {
+            return Provider.sqlite3_db_config(db, op, val);
+        }
+
+        static public int sqlite3_db_config(sqlite3 db, int op, int val, ref int result) 
+        {
+            return Provider.sqlite3_db_config(db, op, val, ref result);
+        }
+        
+        static public int sqlite3_db_config(sqlite3 db, int op, IntPtr ptr, int int0, int int1) 
+        {
+            return Provider.sqlite3_db_config(db, op, ptr, int0, int1);
         }
 
         static public int sqlite3_enable_load_extension(sqlite3 db, int onoff)

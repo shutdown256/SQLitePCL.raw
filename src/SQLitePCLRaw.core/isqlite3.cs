@@ -250,6 +250,11 @@ namespace SQLitePCL
         int sqlite3_config(int op);
         int sqlite3_config(int op, int val);
 
+        // sqlite3_db_config() takes a variable argument list
+        int sqlite3_db_config(sqlite3 db, int op, utf8z val);
+        int sqlite3_db_config(sqlite3 db, int op, int val, ref int result);
+        int sqlite3_db_config(sqlite3 db, int op, IntPtr ptr, int int0, int int1);
+
         int sqlite3_enable_load_extension(sqlite3 db, int enable);
 
 

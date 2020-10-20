@@ -475,6 +475,24 @@ namespace SQLitePCL
             return NativeMethods.sqlite3_config_int(op, val);
         }
 
+        unsafe int ISQLite3Provider.sqlite3_db_config(sqlite3 db, int op, utf8z val)
+        {
+            fixed (byte* p_val = val)
+            {
+                return NativeMethods.sqlite3_db_config_charptr(db, op, p_val);
+            }
+        }
+
+        int ISQLite3Provider.sqlite3_db_config(sqlite3 db, int op, int val, ref int result)
+        {
+            return NativeMethods.sqlite3_db_config_int_refint(db, op, val, ref result);
+        }
+
+        int ISQLite3Provider.sqlite3_db_config(sqlite3 db, int op, IntPtr ptr, int int0, int int1)
+        {
+            return NativeMethods.sqlite3_db_config_intptr_two_ints(db, op, ptr, int0, int1);
+        }
+
         int ISQLite3Provider.sqlite3_initialize()
         {
             return NativeMethods.sqlite3_initialize();
@@ -1651,6 +1669,15 @@ namespace SQLitePCL
 
 		[DllImport(SQLITE_DLL, ExactSpelling=true, EntryPoint = "sqlite3_config", CallingConvention = CALLING_CONVENTION)]
 		public static extern unsafe int sqlite3_config_log(int op, NativeMethods.callback_log func, hook_handle pvUser);
+
+		[DllImport(SQLITE_DLL, ExactSpelling=true, EntryPoint = "sqlite3_db_config", CallingConvention = CALLING_CONVENTION)]
+		public static extern unsafe int sqlite3_db_config_charptr(sqlite3 db, int op, byte* charPtr);
+
+		[DllImport(SQLITE_DLL, ExactSpelling=true, EntryPoint = "sqlite3_db_config", CallingConvention = CALLING_CONVENTION)]
+		public static extern unsafe int sqlite3_db_config_int_refint(sqlite3 db, int op, int val, ref int result);
+
+		[DllImport(SQLITE_DLL, ExactSpelling=true, EntryPoint = "sqlite3_db_config", CallingConvention = CALLING_CONVENTION)]
+		public static extern unsafe int sqlite3_db_config_intptr_two_ints(sqlite3 db, int op,  IntPtr ptr, int int0, int int1);
 
 		[DllImport(SQLITE_DLL, ExactSpelling=true, CallingConvention = CALLING_CONVENTION)]
 		public static extern unsafe int sqlite3_create_collation(sqlite3 db, byte[] strName, int nType, hook_handle pvUser, NativeMethods.callback_collation func);

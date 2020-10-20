@@ -496,6 +496,24 @@ namespace SQLitePCL
             return NativeMethods.sqlite3_config_int(op, val);
         }
 
+        unsafe int ISQLite3Provider.sqlite3_db_config(sqlite3 db, int op, utf8z val)
+        {
+            fixed (byte* p_val = val)
+            {
+                return NativeMethods.sqlite3_db_config_charptr(db, op, p_val);
+            }
+        }
+
+        int ISQLite3Provider.sqlite3_db_config(sqlite3 db, int op, int val, ref int result)
+        {
+            return NativeMethods.sqlite3_db_config_int_refint(db, op, val, ref result);
+        }
+
+        int ISQLite3Provider.sqlite3_db_config(sqlite3 db, int op, IntPtr ptr, int int0, int int1)
+        {
+            return NativeMethods.sqlite3_db_config_intptr_two_ints(db, op, ptr, int0, int1);
+        }
+
         int ISQLite3Provider.sqlite3_initialize()
         {
             return NativeMethods.sqlite3_initialize();
@@ -1515,6 +1533,9 @@ namespace SQLitePCL
 			sqlite3_config_none = (MyDelegateTypes.sqlite3_config_none) Load(gf, typeof(MyDelegateTypes.sqlite3_config_none));
 			sqlite3_config_int = (MyDelegateTypes.sqlite3_config_int) Load(gf, typeof(MyDelegateTypes.sqlite3_config_int));
 			sqlite3_config_log = (MyDelegateTypes.sqlite3_config_log) Load(gf, typeof(MyDelegateTypes.sqlite3_config_log));
+			sqlite3_db_config_charptr = (MyDelegateTypes.sqlite3_db_config_charptr) Load(gf, typeof(MyDelegateTypes.sqlite3_db_config_charptr));
+			sqlite3_db_config_int_refint = (MyDelegateTypes.sqlite3_db_config_int_refint) Load(gf, typeof(MyDelegateTypes.sqlite3_db_config_int_refint));
+			sqlite3_db_config_intptr_two_ints = (MyDelegateTypes.sqlite3_db_config_intptr_two_ints) Load(gf, typeof(MyDelegateTypes.sqlite3_db_config_intptr_two_ints));
 			sqlite3_create_function_v2 = (MyDelegateTypes.sqlite3_create_function_v2) Load(gf, typeof(MyDelegateTypes.sqlite3_create_function_v2));
 			sqlite3_create_collation = (MyDelegateTypes.sqlite3_create_collation) Load(gf, typeof(MyDelegateTypes.sqlite3_create_collation));
 			sqlite3_update_hook = (MyDelegateTypes.sqlite3_update_hook) Load(gf, typeof(MyDelegateTypes.sqlite3_update_hook));
@@ -1649,6 +1670,9 @@ namespace SQLitePCL
 		public static MyDelegateTypes.sqlite3_config_none sqlite3_config_none;
 		public static MyDelegateTypes.sqlite3_config_int sqlite3_config_int;
 		public static MyDelegateTypes.sqlite3_config_log sqlite3_config_log;
+		public static MyDelegateTypes.sqlite3_db_config_charptr sqlite3_db_config_charptr;
+		public static MyDelegateTypes.sqlite3_db_config_int_refint sqlite3_db_config_int_refint;
+		public static MyDelegateTypes.sqlite3_db_config_intptr_two_ints sqlite3_db_config_intptr_two_ints;
 		public static MyDelegateTypes.sqlite3_create_function_v2 sqlite3_create_function_v2;
 		public static MyDelegateTypes.sqlite3_create_collation sqlite3_create_collation;
 		public static MyDelegateTypes.sqlite3_update_hook sqlite3_update_hook;
@@ -2025,6 +2049,18 @@ namespace SQLitePCL
 		[UnmanagedFunctionPointer(CALLING_CONVENTION)]
 		[EntryPoint("sqlite3_config")]
 		public unsafe delegate int sqlite3_config_log(int op, NativeMethods.callback_log func, hook_handle pvUser);
+
+		[UnmanagedFunctionPointer(CALLING_CONVENTION)]
+		[EntryPoint("sqlite3_db_config")]
+		public unsafe delegate int sqlite3_db_config_charptr(sqlite3 db, int op, byte* charPtr);
+
+		[UnmanagedFunctionPointer(CALLING_CONVENTION)]
+		[EntryPoint("sqlite3_db_config")]
+		public unsafe delegate int sqlite3_db_config_int_refint(sqlite3 db, int op, int val, ref int result);
+
+		[UnmanagedFunctionPointer(CALLING_CONVENTION)]
+		[EntryPoint("sqlite3_db_config")]
+		public unsafe delegate int sqlite3_db_config_intptr_two_ints(sqlite3 db, int op,  IntPtr ptr, int int0, int int1);
 
 		[UnmanagedFunctionPointer(CALLING_CONVENTION)]
 		public unsafe delegate int sqlite3_create_collation(sqlite3 db, byte[] strName, int nType, hook_handle pvUser, NativeMethods.callback_collation func);
