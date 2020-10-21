@@ -1130,6 +1130,16 @@ namespace SQLitePCL
             return NativeMethods.sqlite3_memory_highwater(resetFlag);
         }
 
+        long ISQLite3Provider.sqlite3_soft_heap_limit64(long n)
+        {
+            return NativeMethods.sqlite3_soft_heap_limit64(n);
+        }
+        
+        long ISQLite3Provider.sqlite3_hard_heap_limit64(long n)
+        {
+            return NativeMethods.sqlite3_hard_heap_limit64(n);
+        }
+
         int ISQLite3Provider.sqlite3_status(int op, out int current, out int highwater, int resetFlag)
         {
             return NativeMethods.sqlite3_status(op, out current, out highwater, resetFlag);
@@ -1583,6 +1593,8 @@ namespace SQLitePCL
 		"sqlite3_total_changes",
 		"sqlite3_memory_used",
 		"sqlite3_memory_highwater",
+		"sqlite3_soft_heap_limit64",
+		"sqlite3_hard_heap_limit64",
 		"sqlite3_status",
 		"sqlite3_busy_timeout",
 		"sqlite3_bind_blob",
@@ -1929,6 +1941,12 @@ namespace SQLitePCL
 
 		<#= attr #>
 		<#= front #> long sqlite3_memory_highwater(int resetFlag);
+
+		<#= attr #>
+		<#= front #> long sqlite3_soft_heap_limit64(long n);
+
+		<#= attr #>
+		<#= front #> long sqlite3_hard_heap_limit64(long n);
 		
 		<#= attr #>
 		<#= front #> int sqlite3_status(int op, out int current, out int highwater, int resetFlag);

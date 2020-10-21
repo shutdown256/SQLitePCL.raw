@@ -1017,6 +1017,16 @@ namespace SQLitePCL
             return NativeMethods.sqlite3_memory_highwater(resetFlag);
         }
 
+        long ISQLite3Provider.sqlite3_soft_heap_limit64(long n)
+        {
+            return NativeMethods.sqlite3_soft_heap_limit64(n);
+        }
+        
+        long ISQLite3Provider.sqlite3_hard_heap_limit64(long n)
+        {
+            return NativeMethods.sqlite3_hard_heap_limit64(n);
+        }
+
         int ISQLite3Provider.sqlite3_status(int op, out int current, out int highwater, int resetFlag)
         {
             return NativeMethods.sqlite3_status(op, out current, out highwater, resetFlag);
@@ -1526,6 +1536,12 @@ namespace SQLitePCL
 
 		[DllImport(SQLITE_DLL, ExactSpelling=true, CallingConvention = CALLING_CONVENTION)]
 		public static extern unsafe long sqlite3_memory_highwater(int resetFlag);
+
+		[DllImport(SQLITE_DLL, ExactSpelling=true, CallingConvention = CALLING_CONVENTION)]
+		public static extern unsafe long sqlite3_soft_heap_limit64(long n);
+
+		[DllImport(SQLITE_DLL, ExactSpelling=true, CallingConvention = CALLING_CONVENTION)]
+		public static extern unsafe long sqlite3_hard_heap_limit64(long n);
 		
 		[DllImport(SQLITE_DLL, ExactSpelling=true, CallingConvention = CALLING_CONVENTION)]
 		public static extern unsafe int sqlite3_status(int op, out int current, out int highwater, int resetFlag);
