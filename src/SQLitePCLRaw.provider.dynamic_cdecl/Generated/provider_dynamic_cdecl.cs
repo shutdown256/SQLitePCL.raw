@@ -1044,6 +1044,16 @@ namespace SQLitePCL
             return NativeMethods.sqlite3_memory_highwater(resetFlag);
         }
 
+        long ISQLite3Provider.sqlite3_soft_heap_limit64(long n)
+        {
+            return NativeMethods.sqlite3_soft_heap_limit64(n);
+        }
+        
+        long ISQLite3Provider.sqlite3_hard_heap_limit64(long n)
+        {
+            return NativeMethods.sqlite3_hard_heap_limit64(n);
+        }
+
         int ISQLite3Provider.sqlite3_status(int op, out int current, out int highwater, int resetFlag)
         {
             return NativeMethods.sqlite3_status(op, out current, out highwater, resetFlag);
@@ -1485,6 +1495,8 @@ namespace SQLitePCL
 			sqlite3_total_changes = (MyDelegateTypes.sqlite3_total_changes) Load(gf, typeof(MyDelegateTypes.sqlite3_total_changes));
 			sqlite3_memory_used = (MyDelegateTypes.sqlite3_memory_used) Load(gf, typeof(MyDelegateTypes.sqlite3_memory_used));
 			sqlite3_memory_highwater = (MyDelegateTypes.sqlite3_memory_highwater) Load(gf, typeof(MyDelegateTypes.sqlite3_memory_highwater));
+			sqlite3_soft_heap_limit64 = (MyDelegateTypes.sqlite3_soft_heap_limit64) Load(gf, typeof(MyDelegateTypes.sqlite3_soft_heap_limit64));
+			sqlite3_hard_heap_limit64 = (MyDelegateTypes.sqlite3_hard_heap_limit64) Load(gf, typeof(MyDelegateTypes.sqlite3_hard_heap_limit64));
 			sqlite3_status = (MyDelegateTypes.sqlite3_status) Load(gf, typeof(MyDelegateTypes.sqlite3_status));
 			sqlite3_busy_timeout = (MyDelegateTypes.sqlite3_busy_timeout) Load(gf, typeof(MyDelegateTypes.sqlite3_busy_timeout));
 			sqlite3_bind_blob = (MyDelegateTypes.sqlite3_bind_blob) Load(gf, typeof(MyDelegateTypes.sqlite3_bind_blob));
@@ -1622,6 +1634,8 @@ namespace SQLitePCL
 		public static MyDelegateTypes.sqlite3_total_changes sqlite3_total_changes;
 		public static MyDelegateTypes.sqlite3_memory_used sqlite3_memory_used;
 		public static MyDelegateTypes.sqlite3_memory_highwater sqlite3_memory_highwater;
+		public static MyDelegateTypes.sqlite3_soft_heap_limit64 sqlite3_soft_heap_limit64;
+		public static MyDelegateTypes.sqlite3_hard_heap_limit64 sqlite3_hard_heap_limit64;
 		public static MyDelegateTypes.sqlite3_status sqlite3_status;
 		public static MyDelegateTypes.sqlite3_busy_timeout sqlite3_busy_timeout;
 		public static MyDelegateTypes.sqlite3_bind_blob sqlite3_bind_blob;
@@ -1898,6 +1912,12 @@ namespace SQLitePCL
 
 		[UnmanagedFunctionPointer(CALLING_CONVENTION)]
 		public unsafe delegate long sqlite3_memory_highwater(int resetFlag);
+
+		[UnmanagedFunctionPointer(CALLING_CONVENTION)]
+		public unsafe delegate long sqlite3_soft_heap_limit64(long n);
+
+		[UnmanagedFunctionPointer(CALLING_CONVENTION)]
+		public unsafe delegate long sqlite3_hard_heap_limit64(long n);
 		
 		[UnmanagedFunctionPointer(CALLING_CONVENTION)]
 		public unsafe delegate int sqlite3_status(int op, out int current, out int highwater, int resetFlag);

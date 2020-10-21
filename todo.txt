@@ -355,8 +355,6 @@ sqlite3_limit
 
 sqlite3_randomness
 
-sqlite3_soft_heap_limit64
-
 sqlite3_wal_autocheckpoint
 sqlite3_wal_checkpoint
 sqlite3_wal_checkpoint_v2

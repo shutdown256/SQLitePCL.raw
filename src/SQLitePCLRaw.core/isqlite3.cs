@@ -100,6 +100,8 @@ namespace SQLitePCL
         utf8z sqlite3_sourceid();
         long sqlite3_memory_used();
         long sqlite3_memory_highwater(int resetFlag);
+        long sqlite3_soft_heap_limit64(long n);
+        long sqlite3_hard_heap_limit64(long n);
         int sqlite3_status(int op, out int current, out int highwater, int resetFlag);
 
         int sqlite3_db_readonly(sqlite3 db, utf8z dbName);

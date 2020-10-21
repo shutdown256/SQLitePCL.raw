@@ -663,6 +663,16 @@ namespace SQLitePCL
             return Provider.sqlite3_memory_highwater(resetFlag);
         }
 
+        static public long sqlite3_soft_heap_limit64(long n)
+        {
+            return Provider.sqlite3_soft_heap_limit64(n);
+        }
+
+        static public long sqlite3_hard_heap_limit64(long n)
+		{
+            return Provider.sqlite3_hard_heap_limit64(n);
+        }
+
         static public int sqlite3_status(int op, out int current, out int highwater, int resetFlag)
         {
             return Provider.sqlite3_status(op, out current, out highwater, resetFlag);
